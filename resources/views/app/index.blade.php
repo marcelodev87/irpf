@@ -10,8 +10,8 @@
 </head>
 
 <body>
-    <div class="container">
-        <div class="content mt-5">
+    <div class="container w-50">
+        <div class="content mt-2 p-5">
             @if (session()->exists('message'))
                 <div class="alert alert-{{ session()->get('color') }}" role="alert">
                     <strong>{{ session()->get('message') }}</strong>
@@ -19,9 +19,13 @@
             @endif
             <form class="form-signin" name="login" method="POST" action="{{ route('login') }}">
                 @csrf
-                <img class="mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg"
-                    alt="" width="72" height="72">
-                <h1 class="h3 mb-3 font-weight-normal">Insira seus dados</h1>
+
+                <div class="text-center">
+                <img class="mb-4" src="https://etikasolucoes.com.br/wp-content/uploads/2022/03/logo_grupo_etika.png"
+                    alt="" width="300">
+                </div>
+
+                <h1 class="h3 mb-3 font-weight-normal text-center">Insira seus dados</h1>
                 <div class="form-group">
                     <label for="email">Email: </label>
                     <input type="email" name="email" class="form-control" required autofocus>
