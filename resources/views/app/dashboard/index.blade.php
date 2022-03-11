@@ -17,40 +17,41 @@
     @endif
 
 
-    <div class="row mb-2 mt-5">
-        <div class="col-6">
-            <h1 class="text-primary">Minhas Declarações</h1>
+        <div class="row mb-2 mt-5">
+            <div class="col-6">
+                <h1 class="text-primary">Minhas Declarações</h1>
+            </div>
+            <div class="col-6">
+                <button type="button" class="btn btn-success btn-lg btn-block mb-2" data-toggle="modal"
+                    data-target="#decModal">+
+                    Nova
+                    Declaração</button>
+            </div>
         </div>
-        <div class="col-6">
-            <button type="button" class="btn btn-success btn-lg btn-block mb-2" data-toggle="modal" data-target="#decModal">+
-                Nova
-                Declaração</button>
-        </div>
-        <table class="table m-5">
-            <thead>
-                <tr>
-                    <th class="text-center">Ano da Declaração</th>
-                    <th class="text-center">Data da última Alteração</th>
-                    <th class="text-center">Ação</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($declarations as $declaration)
+        <div class="row justify-content-center">
+            <table class="table table-bordered m-5 w-50">
+                <thead class="thead-dark">
                     <tr>
-                        <td class="text-center"><strong>{{ $declaration->year }}</strong></td>
-                        <td class="text-center">{{ $declaration->updated_at }}</td>
-                        <td>
-                            <div class="d-flex justify-content-center">
-                                <a href="{{ route('declaration.year', ['document' => session('document'), 'declaration' => $declaration->id]) }}"
-                                    class="btn btn-primary shadow btn-xs mr-1">
-                                    Editar</a>
-                            </div>
-                        </td>
+                        <th class="text-center">Ano da Declaração</th>
+                        <th class="text-center">Ação</th>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </div>
+                </thead>
+                <tbody>
+                    @foreach ($declarations as $declaration)
+                        <tr>
+                            <td class="text-center"><strong>{{ $declaration->year }}</strong></td>
+                            <td>
+                                <div class="d-flex justify-content-center">
+                                    <a href="{{ route('declaration.year', ['document' => session('document'), 'declaration' => $declaration->id]) }}"
+                                        class="btn btn-primary shadow btn-xs mr-1">
+                                        Editar</a>
+                                </div>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
     <!------------------------------------------------------ DADOS PESSOAIS ---------------------------------------------->
 
     <div class="row mb-2 mt-1 p-1">
@@ -65,20 +66,21 @@
                     <h3 class="d-inline-block mb-2 text-primary">Dados Pessoais</h3>
                     <h4 class="d-inline-block mb-2 text-{{ $color }}">{{ $status }}</h4>
 
-                    <form action="{{ route('user.update', ['document' => session('document')])}}" method="POST">
+                    <form action="{{ route('user.update', ['document' => session('document')]) }}" method="POST">
                         @csrf
                         <input type="hidden" name="id" value="{{ $user->id }}">
                         @foreach ($array as $key => $a)
                             <div class="col-sm-12 col-lg-6">
                                 <label for="{{ $a['name'] }}">{{ $a['label'] }}:</label>
-                                <input type="text" class="form-control" name="{{ $a['name'] }}" value="{{ old($a['name']) }}"
+                                <input type="text" class="form-control" name="{{ $a['name'] }}"
+                                    value="{{ old($a['name']) }}"
                                     onkeypress="{{ htmlspecialchars_decode($a['format']) }}">
                             </div>
                         @endforeach
-                        @if($button == "1")
+                        @if ($button == '1')
                             <button type="submit" class="btn btn-lg btn-success m-2">Salvar meus Dados Pessoais</button>
                             <div class="m-2 text-dark">Última alteração: {{ $user->updated_at }} </div>
-                            @else
+                        @else
                             <div class="m-2 text-dark">Última alteração: {{ $user->updated_at }} </div>
                         @endif
                     </form>
@@ -93,7 +95,9 @@
                     <h3 class="d-inline-block mb-2 text-primary">Dados Bancários</h3>
                     <h4 class="d-inline-block mb-2 text-{{ $color_bank }}">{{ $status_bank }}
                     </h4>
-                    <form action="{{ route('user.bank.update', ['document' => session('document'), 'bank' => $bank->id ])}}" method="POST">
+                    <form
+                        action="{{ route('user.bank.update', ['document' => session('document'), 'bank' => $bank->id]) }}"
+                        method="POST">
                         @csrf
                         <input type="hidden" name="id" value="{{ $bank->id }}">
                         @foreach ($array_bank as $key => $a)
@@ -102,10 +106,10 @@
                                 <input type="text" class="form-control" name="{{ $a['name'] }}">
                             </div>
                         @endforeach
-                        @if($button_bank == "1")
+                        @if ($button_bank == '1')
                             <button type="submit" class="btn btn-lg btn-success m-2">Salvar meus Dados Bancários</button>
                             <div class="m-2 text-dark">Última alteração: {{ $bank->updated_at }} </div>
-                            @else
+                        @else
                             <div class="m-2 text-dark">Última alteração: {{ $bank->updated_at }} </div>
                         @endif
                     </form>
@@ -163,42 +167,55 @@
                                             </div>
                                             <div class="form-check">
                                                 <input class="form-check-input" type="checkbox" name="description[]" value="Realizei investimentos na
-                                                        Bolsa de Valores ou em Criptomoedas">
+                                                            Bolsa de Valores ou em Criptomoedas">
                                                 <label class="form-check-label" for="description">Realizei investimentos na
                                                     Bolsa de Valores ou em Criptomoedas</label>
                                             </div>
                                             <div class="form-check">
                                                 <input class="form-check-input" type="checkbox" name="description[]"
                                                     value="Sou funcionário de uma empresa">
-                                                <label class="form-check-label" for="description">Sou funcionário de uma empresa</label>
+                                                <label class="form-check-label" for="description">Sou funcionário de uma
+                                                    empresa</label>
                                             </div>
                                             <div class="form-check">
                                                 <input class="form-check-input" type="checkbox" name="description[]"
                                                     value="Sou funcionário de uma empresa">
-                                                <label class="form-check-label" for="description">Sou funcionário público</label>
+                                                <label class="form-check-label" for="description">Sou funcionário
+                                                    público</label>
                                             </div>
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="description[]" value="Sou sócio de uma empresa">
-                                                <label class="form-check-label" for="description">Sou sócio de uma empresa</label>
+                                                <input class="form-check-input" type="checkbox" name="description[]"
+                                                    value="Sou sócio de uma empresa">
+                                                <label class="form-check-label" for="description">Sou sócio de uma
+                                                    empresa</label>
                                             </div>
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="description[]" value="Sou MEI">
+                                                <input class="form-check-input" type="checkbox" name="description[]"
+                                                    value="Sou MEI">
                                                 <label class="form-check-label" for="description">Sou MEI</label>
                                             </div>
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="description[]" value="Sou autônomo e não possuo CNPJ">
-                                                <label class="form-check-label" for="description">Sou autônomo e não possuo CNPJ</label>
+                                                <input class="form-check-input" type="checkbox" name="description[]"
+                                                    value="Sou autônomo e não possuo CNPJ">
+                                                <label class="form-check-label" for="description">Sou autônomo e não possuo
+                                                    CNPJ</label>
                                             </div>
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="description[]" value="Sou presidente ou administrador de uma Igreja, Associação, etc">
-                                                <label class="form-check-label" for="description">Sou presidente ou administrador de uma Igreja, Associação, etc</label>
+                                                <input class="form-check-input" type="checkbox" name="description[]"
+                                                    value="Sou presidente ou administrador de uma Igreja, Associação, etc">
+                                                <label class="form-check-label" for="description">Sou presidente ou
+                                                    administrador de uma Igreja, Associação, etc</label>
                                             </div>
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="description[]" value="Sou aposentado ou pensionista">
-                                                <label class="form-check-label" for="description">Sou aposentado ou pensionista</label>
+                                                <input class="form-check-input" type="checkbox" name="description[]"
+                                                    value="Sou aposentado ou pensionista">
+                                                <label class="form-check-label" for="description">Sou aposentado ou
+                                                    pensionista</label>
                                             </div>
                                             <div class="form-check mt-2">
-                                                <p class="text-bold text-danger"><strong>Na próxima página, você deverá enviar os comprovantes de acordo com as opções escolhidas.</strong></p>
+                                                <p class="text-bold text-danger"><strong>Na próxima página, você deverá
+                                                        enviar os comprovantes de acordo com as opções escolhidas.</strong>
+                                                </p>
                                             </div>
                                         </div>
                                         <button type="submit" class="btn btn-success">Cadastrar Declaração</button>
