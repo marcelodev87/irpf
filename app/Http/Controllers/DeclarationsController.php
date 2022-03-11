@@ -30,7 +30,13 @@ class DeclarationsController extends Controller
 
         $createDeclaration = new Declaration;
         $createDeclaration->fill($request->all());
-        $createDeclaration->description = implode("; ", $request->description);
+
+        if(!empty($request->description)){
+            $createDeclaration->description = implode("; ", $request->description);
+        }else{
+            $createDeclaration->description = "";
+        }
+
         $createDeclaration->save();
 
         $parents = Parents::where('declaration_id', $createDeclaration->id)->get();

@@ -168,6 +168,16 @@
                                                     Bolsa de Valores ou em Criptomoedas</label>
                                             </div>
                                             <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="description[]"
+                                                    value="Sou funcionário de uma empresa">
+                                                <label class="form-check-label" for="description">Sou funcionário de uma empresa</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="description[]"
+                                                    value="Sou funcionário de uma empresa">
+                                                <label class="form-check-label" for="description">Sou funcionário público</label>
+                                            </div>
+                                            <div class="form-check">
                                                 <input class="form-check-input" type="checkbox" name="description[]" value="Sou sócio de uma empresa">
                                                 <label class="form-check-label" for="description">Sou sócio de uma empresa</label>
                                             </div>
