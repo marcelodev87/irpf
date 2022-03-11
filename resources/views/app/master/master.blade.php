@@ -49,23 +49,12 @@
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
                         <a class="nav-link"
-                            href="{{ route('dashboard', ['document' => session('document')]) }}">Página Inicial <span
+                            href="{{ route('dashboard', ['document' => session('document')]) }}">Página Inicial<span
                                 class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link"
-                            href="{{ route('user.edit', ['document' => session('document')]) }}">Meus Dados</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                            data-toggle="dropdown" aria-expanded="false">
-                            Minha Conta
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Alterar Senha</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="{{ route('logout') }}">Sair</a>
-                        </div>
+                            href="{{ route('logout') }}">Sair</a>
                     </li>
                 </ul>
             </div>
