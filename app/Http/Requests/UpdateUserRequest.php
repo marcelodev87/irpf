@@ -24,6 +24,7 @@ class UpdateUserRequest extends FormRequest
     public function rules()
     {
         return [
+            'date_of_birth' => 'date_format:d/m/Y',
             'document_voter' => 'nullable|min:8|max:12',
             'civil_status' => 'nullable|min:3|max:12',
 
@@ -38,11 +39,11 @@ class UpdateUserRequest extends FormRequest
             'neighborhood' => 'nullable|min:3',
             'city' => 'nullable|min:3',
 
-            'state' => 'nullable|max:2',
+            'state' => 'nullable|min:2|max:2',
 
             // Contact
-            'telephone' => 'nullable|min:10|max:15',
-            'cell' => 'nullable|min:10|max:15',
+            'telephone' => 'nullable|min:14|max:15',
+            'cell' => 'nullable|min:14|max:15',
         ];
     }
 
@@ -55,8 +56,7 @@ class UpdateUserRequest extends FormRequest
     {
         return [
 
-
-            'email.required' => 'O campo EMAIL é obrigatório!',
+            'date_of_birth.date_format' => 'Insira uma data em formato válido! Ex.: 00/00/0000',
 
             'document_voter.min' => 'O campo TÍTULO DE ELEITOR deve possuir no mímino 8 números!',
             'document_voter.max' => 'O campo TÍTULO DE ELEITOR deve possuir no máximo 12 números!',
@@ -65,7 +65,7 @@ class UpdateUserRequest extends FormRequest
             'civil_status.max' => 'O campo ESTADO CIVIL deve possuir no máximo 12 letras!',
 
             'occupation.min' => 'O campo PROFISSÃO deve possuir no mímino 3 letras!',
-            'occupation.min' => 'O campo PROFISSÃO deve possuir no máximo 50 letras!',
+            'occupation.max' => 'O campo PROFISSÃO deve possuir no máximo 50 letras!',
 
             'zipcode.min' => 'O campo CEP deve possuir no mímino 8 números!',
             'zipcode.max' => 'O campo CEP deve possuir no máximo 9 números!',
@@ -75,6 +75,7 @@ class UpdateUserRequest extends FormRequest
             'complement.min' => 'O campo COMPLEMENTO deve possuir no mímino 1 número!',
             'neighborhood.min' => 'O campo BAIRRO deve possuir no mímino 3 letras!',
             'city.min' => 'O campo CIDADE deve possuir no mímino 3 letras!',
+            'state.min' => 'O campo ESTADO deve possuir 2 letras!',
             'state.max' => 'O campo ESTADO deve possuir apenas 2 letras!',
 
             'telephone.min' => 'O campo TELEFONE deve possuir no mímino 10 números!',

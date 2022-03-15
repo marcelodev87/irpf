@@ -61,10 +61,7 @@ class DeclarationsController extends Controller
         $declaration = Declaration::where('id', $declaration)->first();
         $parents = Parents::where('declaration_id', $declaration->id)->get();
         $files = File::where('declaration_id', $declaration->id)->get();
-
         $declarationResume = explode(';', $declaration->description);
-
-        //dd($declarationResume);
 
         return view('app.declarations.index', [
             'declaration' => $declaration,

@@ -22,10 +22,11 @@
         }
 
         .footer {
-            /* position: absolute; */
             bottom: 0;
             text-align: center;
             width: 100%;
+            margin: 50px 0 0 0;
+            padding: 5px 0;
         }
 
     </style>

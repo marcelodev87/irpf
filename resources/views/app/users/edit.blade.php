@@ -127,7 +127,7 @@
                                     <div class="col-sm-12 col-lg-4 m-2">
                                         <label for="telephone">Telefone:</label>
                                         <input type="text" class="form-control" name="telephone"
-                                            value="{{ old('telephone') ?? $user->telephone }}" onkeypress="$(this).mask('(00) 0000-00009')"">
+                                            value="{{ old('telephone') ?? $user->telephone }}" onkeypress="$(this).mask('(00) 0000-00009')">
                                     </div>
                                     <div class="col-sm-12 col-lg-4 m-2">
                                         <label for="cell">Celular:</label>

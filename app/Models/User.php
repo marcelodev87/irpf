@@ -62,6 +62,11 @@ class User extends Authenticatable
         return $this->hasOne(Bank::class, 'user_id', 'id');
     }
 
+    public function declarations()
+    {
+        return $this->hasMany(Declaration::class, 'user_id', 'id');
+    }
+
     // DOCUMENT --------------------------------------------------
     public function setDocumentAttribute($value)
     {
@@ -93,16 +98,40 @@ class User extends Authenticatable
         return $date->format('d/m/Y H:i:s');
     }
 
+    //CREATED AT -------------------------------------------------
+    public function getCreatedAtAttribute($value)
+    {
+        // Instância um objeto DateTime passando uma data como parâmetro
+        $date = new DateTime($value);
+        // Formata a data para exibição
+        return $date->format('d/m/Y H:i:s');
+    }
+
     // ZIPCODE --------------------------------------------------
     public function setZipcodeAttribute($value)
     {
         $this->attributes['zipcode'] = $this->clearField($value);
     }
 
+    public function getZipcodeAttribute($value)
+    {
+        return substr($value, 0, 5). '-' . substr($value, 5, 3);
+    }
+
     // PHONE AND CELL --------------------------------------------------
     public function setTelephoneAttribute($value)
     {
         $this->attributes['telephone'] = $this->clearField($value);
+    }
+
+    public function getTelephoneAttribute($value)
+    {
+        return '(' . substr($value, 0, 2) . ') '. substr($value, 2, 4) . '-' . substr($value, 6, 5);
+    }
+
+    public function getCellAttribute($value)
+    {
+        return '(' . substr($value, 0, 2) . ') '. substr($value, 2, 4) . '-' . substr($value, 6, 5);
     }
 
     public function setCellAttribute($value)

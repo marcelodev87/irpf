@@ -25,7 +25,8 @@ class UserRequest extends FormRequest
     {
         return [
             'name' => 'required|min:3|max:191',
-            'document' => (!empty($this->request->all()['id']) ? 'min:11|max:14|unique:users,document,' . $this->request->all()['id'] : 'min:11|max:14|unique:users,document'),
+            //'document' => (!empty($this->request->all()['id']) ? 'min:11|max:14|unique:users,document,' . $this->request->all()['id'] : 'min:11|max:14|unique:users,document'),
+            'document' => 'min:11|max:14|unique:users',
             'document_voter' => 'nullable|min:8|max:12',
             'date_of_birth' => 'required|date_format:d/m/Y',
             'civil_status' => 'nullable|min:3|max:12',
@@ -40,7 +41,6 @@ class UserRequest extends FormRequest
             'complement' => 'nullable|min:1',
             'neighborhood' => 'nullable|min:3',
             'city' => 'nullable|min:3',
-
             'state' => 'nullable|max:2',
 
             // Contact
@@ -64,7 +64,12 @@ class UserRequest extends FormRequest
             'name.min' => 'O campo NOME deve possuir no mímino 3 letras!',
             'name.required' => 'O campo NOME é obrigatório!',
 
+            'document.unique' => 'O campo CPF é obrigatório!',
+            'document.min' => 'Insira um CPF válido!',
+
             'email.required' => 'O campo EMAIL é obrigatório!',
+            'email.unique' => 'Este EMAIL igual a esse! Tente entrar com outro email.',
+            'email.email' => 'Insira um EMAIL válido.',
 
             'date_of_birth.required' => 'O campo DATA DE NASCIMENTO é obrigatório!',
 
@@ -93,7 +98,7 @@ class UserRequest extends FormRequest
             'cell.min' => 'O campo CELULAR deve possuir no mímino 10 números!',
             'cell.max' => 'O campo CELULAR deve possuir no máximo 13 números!',
 
-            'email.unique' => 'Este email igual a esse! Tente entrar com outro email.',
+
 
         ];
     }

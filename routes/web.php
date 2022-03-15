@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\Admin\UserController as AdminUserController;
+use App\Http\Controllers\Admin\DeclarationController as AdminDeclarationController;
+use App\Http\Controllers\Admin\ParentsController as AdminParentsController;
+use App\Http\Controllers\Admin\FileController as AdminFileController;
 use App\Http\Controllers\BankController;
 use App\Http\Controllers\DeclarationsController;
 use App\Http\Controllers\FileController;
@@ -18,7 +22,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-// ------------------------ CLIENTE
+// ------------------------ CLIENTE --------------------------------------
 
 Route::get('/', function () {
     return view('app.index');
@@ -57,8 +61,27 @@ Route::post('app/painel/{document}/dados-bancarios/{bank}/update', [BankControll
 
 
 
-// -------------------------
+// ------------------------ ADMIN --------------------------------------
 
+Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], function(){
+    Route::get('dashboard', [AdminUserController::class, 'index'])->name('admin.dashboard');
+
+    Route::get('cliente/create', [AdminUserController::class, 'create'])->name('admin.user.create');
+    Route::post('cliente/store', [AdminUserController::class, 'store'])->name('admin.user.store');
+    Route::get('cliente/{id}/edit', [AdminUserController::class, 'edit'])->name('admin.user.edit');
+    Route::post('cliente/{id}', [AdminUserController::class, 'show'])->name('modal.user.show');
+    Route::post('cliente/{id}/update', [AdminUserController::class, 'update'])->name('admin.user.update');
+
+    Route::get('cliente/{id}/declaracoes', [AdminDeclarationController::class, 'show'])->name('admin.declarations.show');
+    Route::get('cliente/{id}/declaracao/{declaration}', [AdminDeclarationController::class, 'index'])->name('admin.declarations.index');
+    Route::post('cliente/{id}/declaracao/store', [AdminDeclarationController::class, 'store'])->name('admin.declarations.store');
+
+    Route::get('cliente/{id}/declaracao/{declaration}/arquivos', [AdminFileController::class, 'index'])->name('admin.declaration.file.index');
+    Route::post('cliente/{id}/declaracao/{declaration}/arquivos/store', [AdminFileController::class, 'store'])->name('admin.declaration.file.store');
+
+    Route::get('cliente/{id}/declaracao/{declaration}/dependentes', [AdminParentsController::class, 'index'])->name('admin.declaration.parent');
+    Route::post('cliente/{id}/declaracao/{declaration}/dependentes/store', [AdminParentsController::class, 'store'])->name('admin.declaration.parent.store');
+});
 
 /*
 Route::get('/app/panel/', [UserController::class, 'panel'])->name('dashboard.panel');
