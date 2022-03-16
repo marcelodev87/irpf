@@ -14,14 +14,15 @@ class AuthController extends Controller
     {
        /*  if (Auth::check() === true) {
             return redirect()->route('admin.admin.dashboard');
-        } */
+        } *///
+
         return view('admin.index');
     }
 
     public function login(Request $request)
     {
-        //dd($x = Hash::make('123456'));
 
+//dd($x = Hash::make('061009'));
         if (in_array('', $request->only('email', 'password'))) {
             return redirect()->back()->with([
                 'color' => 'danger',
