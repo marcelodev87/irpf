@@ -8,6 +8,7 @@ use App\Models\File;
 use App\Models\Parents;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class DeclarationController extends Controller
 {
@@ -28,6 +29,7 @@ class DeclarationController extends Controller
 
         $user = User::select('id', 'name', 'document')->where('id', $declaration->user_id)->first();
         $files = File::where('declaration_id', $declaration->id)->get();
+        $url = "https://etikasolucoes.com.br/irpf/storage/app/";
 
         $parents = Parents::where('declaration_id', $declaration->id)->get();
         return view('admin.declarations.index',[
@@ -35,7 +37,8 @@ class DeclarationController extends Controller
             'declarationResume' => $declarationResume,
             'files' => $files,
             'parents' => $parents,
-            'user' => $user
+            'user' => $user,
+            'url' =>$url
         ]);
     }
 
