@@ -49,7 +49,7 @@
                         <td class="text-center">{{ $file->created_at }}</td>
                         <td class="text-center"><a target="_blank"
                                 href="{{ Storage::url($file->path) }}" class="btn btn-info">Ver
-                                Informações</a></td>
+                                Informações</a> {{ Storage::url($file->path) }}</td>
                                 {{-- <td class="text-center"><a target="_blank"
                                     href="{{ env('APP_URL') }}/storage/{{ $file->path }}" class="btn btn-info">Ver
                                     Informações</a></td> --}}
