@@ -48,7 +48,7 @@
                         <td class="text-center">{{ $file->description }}</td>
                         <td class="text-center">{{ $file->created_at }}</td>
                         <td class="text-center"><a target="_blank"
-                                href="{{ asset('storage/' . $file->path)  }}" class="btn btn-info">Ver
+                                href="{{ url('storage/' . $file->path)  }}" class="btn btn-info">Ver
                                 Informações</a></td>
                                 {{-- <td class="text-center"><a target="_blank"
                                     href="{{ env('APP_URL') }}/storage/{{ $file->path }}" class="btn btn-info">Ver
