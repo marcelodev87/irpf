@@ -36,7 +36,8 @@ class User extends Authenticatable
         'city',
 
         'telephone',
-        'cell'
+        'cell',
+        'admin'
     ];
 
     /**

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Admin\DeclarationController as AdminDeclarationController;
 use App\Http\Controllers\Admin\ParentsController as AdminParentsController;
@@ -58,43 +59,32 @@ Route::get('app/painel/{document}/dados-bancarios/{bank}', [BankController::clas
 Route::post('app/painel/{document}/dados-bancarios/{bank}/update', [BankController::class, 'update'])->name('user.bank.update');
 
 
-
-
-
 // ------------------------ ADMIN --------------------------------------
 
-Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], function(){
-    Route::get('dashboard', [AdminUserController::class, 'index'])->name('admin.dashboard');
+Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], function () {
 
-    Route::get('cliente/create', [AdminUserController::class, 'create'])->name('admin.user.create');
-    Route::post('cliente/store', [AdminUserController::class, 'store'])->name('admin.user.store');
-    Route::get('cliente/{id}/edit', [AdminUserController::class, 'edit'])->name('admin.user.edit');
-    Route::post('cliente/{id}', [AdminUserController::class, 'show'])->name('modal.user.show');
-    Route::post('cliente/{id}/update', [AdminUserController::class, 'update'])->name('admin.user.update');
+    Route::get('/', [AuthController::class, 'showLoginForm'])->name('admin.login');
+    Route::post('/admin/login', [AuthController::class, 'login'])->name('admin.login.do');
+    Route::get('/admin/logout', [AuthController::class, 'logout'])->name('admin.logout');
 
-    Route::get('cliente/{id}/declaracoes', [AdminDeclarationController::class, 'show'])->name('admin.declarations.show');
-    Route::get('cliente/{id}/declaracao/{declaration}', [AdminDeclarationController::class, 'index'])->name('admin.declarations.index');
-    Route::post('cliente/{id}/declaracao/store', [AdminDeclarationController::class, 'store'])->name('admin.declarations.store');
+    Route::middleware(['admin'])->group(function () {
 
-    Route::get('cliente/{id}/declaracao/{declaration}/arquivos', [AdminFileController::class, 'index'])->name('admin.declaration.file.index');
-    Route::post('cliente/{id}/declaracao/{declaration}/arquivos/store', [AdminFileController::class, 'store'])->name('admin.declaration.file.store');
+        Route::get('dashboard', [AdminUserController::class, 'index'])->name('admin.dashboard');
 
-    Route::get('cliente/{id}/declaracao/{declaration}/dependentes', [AdminParentsController::class, 'index'])->name('admin.declaration.parent');
-    Route::post('cliente/{id}/declaracao/{declaration}/dependentes/store', [AdminParentsController::class, 'store'])->name('admin.declaration.parent.store');
+        Route::get('cliente/create', [AdminUserController::class, 'create'])->name('admin.user.create');
+        Route::post('cliente/store', [AdminUserController::class, 'store'])->name('admin.user.store');
+        Route::get('cliente/{id}/edit', [AdminUserController::class, 'edit'])->name('admin.user.edit');
+        Route::post('cliente/{id}', [AdminUserController::class, 'show'])->name('modal.user.show');
+        Route::post('cliente/{id}/update', [AdminUserController::class, 'update'])->name('admin.user.update');
+
+        Route::get('cliente/{id}/declaracoes', [AdminDeclarationController::class, 'show'])->name('admin.declarations.show');
+        Route::get('cliente/{id}/declaracao/{declaration}', [AdminDeclarationController::class, 'index'])->name('admin.declarations.index');
+        Route::post('cliente/{id}/declaracao/store', [AdminDeclarationController::class, 'store'])->name('admin.declarations.store');
+
+        Route::get('cliente/{id}/declaracao/{declaration}/arquivos', [AdminFileController::class, 'index'])->name('admin.declaration.file.index');
+        Route::post('cliente/{id}/declaracao/{declaration}/arquivos/store', [AdminFileController::class, 'store'])->name('admin.declaration.file.store');
+
+        Route::get('cliente/{id}/declaracao/{declaration}/dependentes', [AdminParentsController::class, 'index'])->name('admin.declaration.parent');
+        Route::post('cliente/{id}/declaracao/{declaration}/dependentes/store', [AdminParentsController::class, 'store'])->name('admin.declaration.parent.store');
+    });
 });
-
-/*
-Route::get('/app/panel/', [UserController::class, 'panel'])->name('dashboard.panel');
-
-
-Route::get('/app', function () {
-    return view('app.dashboard.index')->name('dashboard');
-});
-
-Route::resource('app/cliente/{cliente}/dados-bancarios', BankController::class);
-
-Route::resource('app/cliente', UserController::class);
-
-Route::resource('app/nova-declaracao', DeclarationController::class);
-
- */

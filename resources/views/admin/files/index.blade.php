@@ -1,4 +1,4 @@
-@extends('app.master.master')
+@extends('admin.master.master')
 
 @section('content')
     <nav aria-label="breadcrumb">

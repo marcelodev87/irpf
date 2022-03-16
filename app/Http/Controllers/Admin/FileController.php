@@ -15,7 +15,7 @@ class FileController extends Controller
     {
         //dd($declaration);
         $declaration = Declaration::where('id', $declaration)->first();
-        $user = User::select('id', 'name', 'document')->where('id', $declaration->user_id)->first();
+        $user = User::select('id', 'name', 'document')->where('id', $id)->first();
 
         return view('admin.files.index',[
             'declaration' => $declaration,

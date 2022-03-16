@@ -59,7 +59,7 @@
                         <a class="nav-link" href="{{ route('admin.admin.user.create')}}">Adicionar Cliente</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Sair</a>
+                        <a class="nav-link" href="{{ route('admin.admin.logout')}}">Sair</a>
                     </li>
                 </ul>
             </div>
